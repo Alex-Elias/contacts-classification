@@ -2,6 +2,7 @@
 from pathlib import Path
 import pickle
 import argparse
+import joblib
 
 import calc_features
 
@@ -24,21 +25,20 @@ if __name__ == '__main__':
     pdb_id = Path(pdb_file).stem
 
     pdb_features = calc_features.generate_features_pdb(pdb_file, conf_file)
-
+    pdb_features_filled = pdb_features[FEATURES].apply(lambda x: x.fillna(x.mean()) if x.dtype.kind in 'biufc' else x)
     with open('model.pkl', 'rb') as f:
         model = pickle.load(f)
+
     
-    procent = model.predict_proba(pdb_features[FEATURES])
+    procent = model.predict_proba(pdb_features_filled)
 
-
-
-    pdb_features['hbond'] = procent[0][:,1]
-    pdb_features['vdw'] = procent[6][:,1]
-    pdb_features['ssbond'] = procent[5][:,1]
-    pdb_features['ionic'] = procent[1][:,1]
-    pdb_features['pipistack'] = procent[4][:,1]
-    pdb_features['pication'] = procent[2][:,1]
-    pdb_features['pihbond'] = procent[3][:,1]
+    pdb_features['HBOND'] = procent[:,0]
+    pdb_features['VDW'] = procent[:,6]
+    pdb_features['SSBOND'] = procent[:,5]
+    pdb_features['IONIC'] = procent[:,1]
+    pdb_features['PIPISTACK'] = procent[:,4]
+    pdb_features['PICATION'] = procent[:,2]
+    pdb_features['PIHBOND'] = procent[:,3]
 
 
     pdb_features.to_csv("{}/{}.tsv".format(args.out_dir, pdb_id), sep="\t", index=False)
