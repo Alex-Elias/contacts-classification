@@ -115,7 +115,7 @@ if __name__ == '__main__':
     clf.fit(X, y)
 
     sleep(60)
-    joblib.dump(clf, 'loblib_model.sav')
-    #with open('model.pkl','wb') as f:
-    #    pickle.dump(clf,f)
+    
+    with open('model.pkl','wb') as f:
+        pickle.dump(clf,f)
     
