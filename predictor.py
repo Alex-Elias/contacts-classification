@@ -1,4 +1,3 @@
-
 from pathlib import Path
 import pickle
 import argparse
@@ -28,7 +27,6 @@ if __name__ == '__main__':
     
     with open('model.pkl', 'rb') as f:
         model = pickle.load(f)
-
     
     procent = model.predict_proba(pdb_features_filled)
 

@@ -9,7 +9,6 @@ from sklearn.preprocessing import MultiLabelBinarizer
 from sklearn.multiclass import OneVsRestClassifier
 from collections import Counter
 import numpy as np
-from time import sleep
 
 
 FEATURES = [ 's_up', 's_down', 's_phi', 's_psi',  's_a1', 's_a2', 's_a3', 's_a4', 's_a5', 
@@ -60,7 +59,7 @@ def under_oversampler(X_train, y_train):
     
     for x in c.keys():
         if c[x] < 1000:
-            samples_over[x] = c[x] * 10
+            samples_over[x] = c[x] * 15
         elif c[x] < 10000:
             samples_over[x] = c[x] * 3
         else:
@@ -114,8 +113,6 @@ if __name__ == '__main__':
                                                          criterion='log_loss', n_jobs=-1))
 
     clf.fit(X, y)
-
-    sleep(60)
     
     with open('model.pkl','wb') as f:
         pickle.dump(clf,f)
