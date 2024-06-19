@@ -72,7 +72,7 @@ To run the predictor.py software, it first requires a pickle of the classifier m
 
 The predictor.py file takes up to three command line inputs, PDB file (required), configuration file (defaults to the one found in configuration), and the path to the directory to save the .tsv file (defaults to ./) 
 
-An example to run predictor.py
+An example to run predictor.py with the default configuration
 
 ```
 python3 predictor.py your_pdb_file.pdb
