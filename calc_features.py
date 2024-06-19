@@ -37,7 +37,7 @@ def generate_features_pdb(pdb_file, conf_file):
     # Load the config file
     # If not provided, set the path to "configuration.json", which is in the same folder of this Python file
     src_dir = str(PurePath(os.path.realpath(__file__)).parent)
-    config_file = src_dir + "/configuration.json" if conf_file is None else conf_file
+    config_file = src_dir + "/configuration/configuration.json" if conf_file is None else conf_file
     with open(config_file) as f:
         config = json.load(f)
 

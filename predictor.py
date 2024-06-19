@@ -2,7 +2,6 @@
 from pathlib import Path
 import pickle
 import argparse
-import joblib
 
 import calc_features
 
@@ -26,6 +25,7 @@ if __name__ == '__main__':
 
     pdb_features = calc_features.generate_features_pdb(pdb_file, conf_file)
     pdb_features_filled = pdb_features[FEATURES].apply(lambda x: x.fillna(x.mean()) if x.dtype.kind in 'biufc' else x)
+    
     with open('model.pkl', 'rb') as f:
         model = pickle.load(f)
 

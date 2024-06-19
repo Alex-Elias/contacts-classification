@@ -1,6 +1,5 @@
 import os
 import pickle
-import joblib
 
 import pandas as pd
 from imblearn.over_sampling import SMOTE
@@ -61,7 +60,9 @@ def under_oversampler(X_train, y_train):
     
     for x in c.keys():
         if c[x] < 1000:
-            samples_over[x] = min(c[x] * 10, max_samples)
+            samples_over[x] = c[x] * 10
+        elif c[x] < 10000:
+            samples_over[x] = c[x] * 3
         else:
             samples_over[x] = c[x]
     
