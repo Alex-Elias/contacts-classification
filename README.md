@@ -2,7 +2,12 @@
 This repository was created for the Classification in contact proteins structures project for the Structural Bioinformatics final project in spring 2024 at the University of Padua.
 
 Residue Interaction Networks are derived from protein structures based on geometrical and physico-chemical properties of the amino acids. The aim of this project was to create a software that takes a PDB file, predicts the contacts of the residue-residue pairs with their types in the protein structure, and returns a file with the data. The interactions types considered included: Hydrogen Bonds (HBOND), Van der Waals (VDW), π-π Stacking (PIPISTACK), Ionic Bonds (IONIC), π-Cation Interactions (PICATION), and Disulfide Bonds (SSBOND). 
-## Structure of the repository
+
+The model chosen for this classification task was sklearn's OneVsRestClassifier with the estimator being sklearn's RandomForestClassifier. OneVsRestClassifier was trained on a balanced subsample of 3299 pdb files. 
+## Desciption of the software
+
+The predictor.py software uses the calc_features.py script to transform the pdb file into a Pandas DataFrametakes with the values of the columns in the following table besides the interactions. Then, predictory.py uses the pretrained model to predict the interactions and saves everyting on a .tsv file in the following format:
+
 | Column position | Column name |               Column meaning               |       Type of column      |
 |:---------------:|:-----------:|:------------------------------------------:|:-------------------------:|
 |        1        |    pdb_id   |                                            |                           |
@@ -46,6 +51,9 @@ Residue Interaction Networks are derived from protein structures based on geomet
 |        39       |   PICATION  |              interaction type              |                           |
 |        40       |    PIHBOND  |              interaction type              |                           |
 
+The columns HBOND, VDW, SSBOND, IONIC, PIPISTACK, PICATION, AND PIHBOND store the predicted percentage that the interaction of the contact is of that type. Since each contact can be of multiple interactions, the score for each interaction type can be interpreted individually.
+
+The train_model.py script trains a new classifier model from scratch. It reads the training data from the features_ring folder, preprocesses the data and takes a balanced subsample of it to train the new model. The new model is pickled and saved in the same directory as model.pkl
 
 ## Installing the dependencies
 The dependencies for this repository are found in the requirements.txt file. They can be installed using the command 
@@ -62,10 +70,14 @@ The predictor.py file takes up to three command line inputs, PDB file (required)
 
 An example to run predictor.py
 
-``` python3 predictor.py your_pdb_file.pdb```
+```
+python3 predictor.py your_pdb_file.pdb
+```
 
 The train_model.py script does not require any command line parameters, but requires the training data to be found in a folder named *features_ring* in the same directory as the train_model.py script. The features_ring folder with training data can be downloaded [here](https://drive.google.com/file/d/1fuFonB7P-xPZ4hYL8ZGn12EC20thRG2s/view). The model is pickeled and saved as model.pkl in the same directory as train_model.py.
 
 train_model.py can be run with the following command
 
-``` python3 train_model.py```
+``` 
+python3 train_model.py
+```
