@@ -60,7 +60,9 @@ The train_model.py script trains a new classifier model from scratch. It reads t
 ## Installing the dependencies
 The dependencies for this repository are found in the requirements.txt file. They can be installed using the command 
 
-```pip3 install -r requirements.txt```
+```
+pip3 install -r requirements.txt
+```
 
 The DSSP software must also be installed and the path to it be changed in the configuration.json file in the configuration folder.
 ## Running the software
