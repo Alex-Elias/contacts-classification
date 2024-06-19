@@ -8,7 +8,7 @@ Residue Interaction Networks are derived from protein structures based on geomet
 The model chosen for this classification task was sklearn's OneVsRestClassifier with the estimator being sklearn's RandomForestClassifier. OneVsRestClassifier was trained on a balanced subsample of 3299 pdb files. 
 ## Desciption of the software
 
-The predictor.py software uses the calc_features.py script to transform the pdb file into a Pandas DataFrametakes with the values of the columns in the following table besides the interactions. Then, predictory.py uses the pretrained model to predict the interactions and saves everyting on a .tsv file in the following format:
+The predictor.py software uses the calc_features.py script to transform the pdb file into a Pandas DataFrame with the souce and target residue identifers and features. Then, predictory.py uses the pretrained model to predict the interactions from the features and saves all the data on a .tsv file in the following format:
 
 | Column position | Column name |               Column meaning               |       Type of column      |
 |:---------------:|:-----------:|:------------------------------------------:|:-------------------------:|
